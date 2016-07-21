@@ -1,0 +1,57 @@
+PODS:
+  - Alamofire (3.2.1)
+  - DZNEmptyDataSet (1.7.3)
+  - Google/Analytics (1.0.7):
+    - Google/Core
+    - GoogleAnalytics (~> 3.12)
+  - Google/Core (1.0.7):
+    - GoogleNetworkingUtilities (~> 1.0)
+    - GoogleSymbolUtilities (~> 1.0)
+    - GoogleUtilities (~> 1.0)
+  - GoogleAnalytics (3.14.0)
+  - GoogleNetworkingUtilities (1.0.0):
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleSymbolUtilities (1.0.3)
+  - GoogleUtilities (1.1.0):
+    - GoogleSymbolUtilities (~> 1.0.0)
+  - HanekeSwift (0.10.1)
+  - Spring (1.0.3)
+  - SwiftyJSON (2.3.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - DZNEmptyDataSet
+  - Google/Analytics (~> 1.0.0)
+  - HanekeSwift
+  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift2`)
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode7.1`)
+
+EXTERNAL SOURCES:
+  Spring:
+    :branch: swift2
+    :git: https://github.com/MengTo/Spring.git
+  SwiftyJSON:
+    :branch: xcode7.1
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  Spring:
+    :commit: 18d5c7b74489de8044e34767f856d1e574f0820e
+    :git: https://github.com/MengTo/Spring.git
+  SwiftyJSON:
+    :commit: 3db7e39b11b58c91a0a360381ec7620b2caab46a
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+SPEC CHECKSUMS:
+  Alamofire: 87c0e89579a2919873312ce86a93dd10c754d967
+  DZNEmptyDataSet: 85d3f411b9bf8ba022f560a776f524432016d720
+  Google: 77ff4082b3dd7f8cc09b9bbf3c4425c64343d6e1
+  GoogleAnalytics: 7ea7098da6b58fb892cce5f944be750f82aec887
+  GoogleNetworkingUtilities: 297298112870a97d7ca6226fc5174e25723730af
+  GoogleSymbolUtilities: a98ea3821473fb3b781eb687eb9c084123834280
+  GoogleUtilities: 0fd940f6ec14d578382c59eee167affc378b14b6
+  HanekeSwift: 8b349e2edd39483bfbe487e05d90487903d14597
+  Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
+  SwiftyJSON: 705aa707804b63377e49adf096d3f1bd59afafbc
+
+COCOAPODS: 0.39.0

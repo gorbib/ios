@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F31a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashscreen" translatesAutoresizingMaskIntoConstraints="NO" id="bhv-DH-bHo">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="JYJ-gg-ft5"/>
+                                    <constraint firstAttribute="height" constant="667" id="e9i-59-kZ2"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="JYJ-gg-ft5"/>
+                                        <exclude reference="e9i-59-kZ2"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Качканарская библиотека" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6AS-ta-gYL">
+                                <rect key="frame" x="0.0" y="259" width="375" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Cvj-SA-wC7"/>
+                                    <constraint firstAttribute="height" constant="666" id="HJs-f1-h8L"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="48"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="HJs-f1-h8L"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bhv-DH-bHo" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="AyY-C7-UnY"/>
+                            <constraint firstItem="6AS-ta-gYL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Bxe-Bu-cMD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bhv-DH-bHo" secondAttribute="trailing" constant="-20" id="JyG-pB-fmh"/>
+                            <constraint firstItem="6AS-ta-gYL" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="KWP-3v-KcH"/>
+                            <constraint firstItem="bhv-DH-bHo" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="fqm-2Z-dRw"/>
+                            <constraint firstItem="bhv-DH-bHo" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" constant="20" id="jNR-pw-7a9"/>
+                            <constraint firstItem="bhv-DH-bHo" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="kSD-RE-SWK"/>
+                            <constraint firstItem="bhv-DH-bHo" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="nWu-bG-sl9"/>
+                            <constraint firstItem="6AS-ta-gYL" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="zmV-Xa-HCP"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="fqm-2Z-dRw"/>
+                                <exclude reference="jNR-pw-7a9"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.5" y="374.5"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="splashscreen" width="1242" height="2208"/>
+    </resources>
+</document>

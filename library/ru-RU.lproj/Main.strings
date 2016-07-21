@@ -1,0 +1,78 @@
+
+/* Class = "UILabel"; text = "Категория"; ObjectID = "1bc-Sp-pfL"; */
+"1bc-Sp-pfL.text" = "Категория";
+
+/* Class = "UIViewController"; title = "Book information"; ObjectID = "1lW-QF-78E"; */
+"1lW-QF-78E.title" = "Book information";
+
+/* Class = "UILabel"; text = "News title"; ObjectID = "23A-nL-owY"; */
+"23A-nL-owY.text" = "News title";
+
+/* Class = "UITextView"; text = "—"; ObjectID = "3nf-Uw-wv2"; */
+"3nf-Uw-wv2.text" = "—";
+
+/* Class = "UILabel"; text = "Похоже в библиотеке такой книги нет"; ObjectID = "6fG-H5-VwY"; */
+"6fG-H5-VwY.text" = "Похоже в библиотеке такой книги нет";
+
+/* Class = "UINavigationItem"; title = "Содержание"; ObjectID = "9sw-L2-WLD"; */
+"9sw-L2-WLD.title" = "Содержание";
+
+/* Class = "UINavigationController"; title = "Библиотека"; ObjectID = "AM3-vq-3hk"; */
+"AM3-vq-3hk.title" = "Библиотека";
+
+/* Class = "UILabel"; text = "Новое в каталоге"; ObjectID = "DQb-ie-Ksk"; */
+"DQb-ie-Ksk.text" = "Новое в каталоге";
+
+/* Class = "UIBarButtonItem"; title = "Содержание"; ObjectID = "LhA-pl-ytg"; */
+"LhA-pl-ytg.title" = "Содержание";
+
+/* Class = "UILabel"; text = "Год издания"; ObjectID = "MXt-pR-KoW"; */
+"MXt-pR-KoW.text" = "Год издания";
+
+/* Class = "UILabel"; text = "Default book title"; ObjectID = "MqF-qf-3xu"; */
+"MqF-qf-3xu.text" = "Default book title";
+
+/* Class = "UILabel"; text = "0+"; ObjectID = "NaW-nY-Ji8"; */
+"NaW-nY-Ji8.text" = "0+";
+
+/* Class = "UITableViewController"; title = "Содержание"; ObjectID = "Ned-YF-5UJ"; */
+"Ned-YF-5UJ.title" = "Содержание";
+
+/* Class = "UILabel"; text = "Pages"; ObjectID = "QAY-5t-rWQ"; */
+"QAY-5t-rWQ.text" = "Pages";
+
+/* Class = "UINavigationItem"; title = "Чат"; ObjectID = "TF4-1x-zst"; */
+"TF4-1x-zst.title" = "Чат";
+
+/* Class = "UIBarButtonItem"; title = " "; ObjectID = "TxT-Hw-ofh"; */
+"TxT-Hw-ofh.title" = " ";
+
+/* Class = "UILabel"; text = "Издательство"; ObjectID = "XDD-gv-gzE"; */
+"XDD-gv-gzE.text" = "Издательство";
+
+/* Class = "UINavigationItem"; title = "Моя библиотека"; ObjectID = "YID-7K-c0G"; */
+"YID-7K-c0G.title" = "Моя библиотека";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "bMQ-np-4CM"; */
+"bMQ-np-4CM.text" = "Label";
+
+/* Class = "UILabel"; text = "Не указано"; ObjectID = "ccG-94-IGQ"; */
+"ccG-94-IGQ.text" = "Не указано";
+
+/* Class = "UILabel"; text = "Не указан"; ObjectID = "dCV-qC-ES6"; */
+"dCV-qC-ES6.text" = "Не указан";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "p9a-4c-EgI"; */
+"p9a-4c-EgI.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "pWs-mM-BQj"; */
+"pWs-mM-BQj.text" = "Date";
+
+/* Class = "UILabel"; text = "Где найти"; ObjectID = "qfC-O5-y3q"; */
+"qfC-O5-y3q.text" = "Где найти";
+
+/* Class = "UIButton"; normalTitle = "Author Name"; ObjectID = "uPE-Ut-e9d"; */
+"uPE-Ut-e9d.normalTitle" = "Author Name";
+
+/* Class = "UIBarButtonItem"; title = "Назад"; ObjectID = "ycF-QO-ojh"; */
+"ycF-QO-ojh.title" = "Назад";

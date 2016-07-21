@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10102" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10080"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="BookshelfItem" customModule="Library" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gbu-cQ-6qo">
+                    <rect key="frame" x="10" y="0.0" width="355" height="167"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXX-xt-7Gp">
+                    <rect key="frame" x="50" y="15" width="275" height="137"/>
+                    <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ZXX-xt-7Gp" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="1qe-8W-iJL"/>
+                <constraint firstItem="gbu-cQ-6qo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4dm-sh-ABr"/>
+                <constraint firstItem="ZXX-xt-7Gp" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" constant="-100" id="HxM-aK-f43"/>
+                <constraint firstItem="gbu-cQ-6qo" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="NHl-qS-aaM"/>
+                <constraint firstItem="ZXX-xt-7Gp" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="QHI-Fe-z4J"/>
+                <constraint firstItem="gbu-cQ-6qo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="qzQ-jP-EUq"/>
+                <constraint firstItem="gbu-cQ-6qo" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="rW9-EL-r4b"/>
+                <constraint firstItem="ZXX-xt-7Gp" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" constant="-30" id="rho-Gv-L6M"/>
+                <constraint firstItem="gbu-cQ-6qo" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" constant="-20" id="zhi-7i-wPT"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="4dm-sh-ABr"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="cover" destination="gbu-cQ-6qo" id="G9k-Tx-k9l"/>
+                <outlet property="title" destination="ZXX-xt-7Gp" id="2IL-SJ-b3R"/>
+            </connections>
+            <point key="canvasLocation" x="170.5" y="223"/>
+        </view>
+    </objects>
+</document>
