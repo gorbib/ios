@@ -17,14 +17,14 @@ class BookCollectionCell: UICollectionViewCell {
         super.awakeFromNib()
 
         // Rounded corners
-        let path = UIBezierPath(roundedRect:cover.bounds, byRoundingCorners:[.TopRight, .BottomRight], cornerRadii: CGSizeMake(5, 5))
+        let path = UIBezierPath(roundedRect:cover.bounds, byRoundingCorners:[.topRight, .bottomRight], cornerRadii: CGSize(width: 5, height: 5))
         let maskLayer = CAShapeLayer()
-        maskLayer.path = path.CGPath
+        maskLayer.path = path.cgPath
         cover.layer.mask = maskLayer
 
         // shadow
-        cover.layer.shadowColor = UIColor.blackColor().CGColor
-        cover.layer.shadowOffset = CGSizeMake(5, 5)
+        cover.layer.shadowColor = UIColor.black.cgColor
+        cover.layer.shadowOffset = CGSize(width: 5, height: 5)
         cover.layer.shadowRadius = 1.0
         cover.layer.shadowOpacity = 0.6
         cover.layer.shouldRasterize = true
@@ -32,9 +32,9 @@ class BookCollectionCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         title.text = nil
-        title.hidden = false
+        title.isHidden = false
         author.text = nil
-        author.hidden = false
+        author.isHidden = false
         cover.image = UIImage(named: "empty")
     }
 }

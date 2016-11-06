@@ -19,9 +19,9 @@ class BooksListItem: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        let path = UIBezierPath(roundedRect:cover.bounds, byRoundingCorners:[.TopRight, .BottomRight], cornerRadii: CGSizeMake(5, 5))
+        let path = UIBezierPath(roundedRect:cover.bounds, byRoundingCorners:[.topRight, .bottomRight], cornerRadii: CGSize(width: 5, height: 5))
         let maskLayer = CAShapeLayer()
-        maskLayer.path = path.CGPath
+        maskLayer.path = path.cgPath
         cover.layer.mask = maskLayer
         cover.clipsToBounds = true
 

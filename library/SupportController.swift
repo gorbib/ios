@@ -17,8 +17,8 @@ class SupportController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let url = NSURL(string: "https://chat.chatra.io/?hostId=dYM9sGGcftaFpskD7")
-        let request = NSURLRequest(URL: url!)
+        let url = URL(string: "https://chat.chatra.io/?hostId=dYM9sGGcftaFpskD7")
+        let request = URLRequest(url: url!)
         webview.loadRequest(request)
 
         
@@ -26,7 +26,7 @@ class SupportController: UIViewController {
         activityIndicator.startAnimating()
     }
 
-    func webViewDidFinishLoad(webView_Pages: UIWebView) {
+    func webViewDidFinishLoad(_ webView_Pages: UIWebView) {
         activityIndicator.stopAnimating()
     }
 }

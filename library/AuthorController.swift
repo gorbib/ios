@@ -12,13 +12,13 @@ import SwiftyJSON
 class AuthorController: UITableViewController {
 
     var author: Author!
-    private var books: [Book]! = []
+    fileprivate var books: [Book]! = []
     var selectedItemInfo: Book!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.registerNib(UINib(nibName: "Book", bundle: nil), forCellReuseIdentifier: "Book")
+        self.tableView.register(UINib(nibName: "Book", bundle: nil), forCellReuseIdentifier: "Book")
 
         self.title = author!.name
         self.navigationItem.title = author!.name
@@ -32,24 +32,24 @@ class AuthorController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Book", forIndexPath: indexPath) as! BooksListItem
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Book", for: indexPath) as! BooksListItem
 
-        let book = books[indexPath.row]
+        let book = books[(indexPath as NSIndexPath).row]
 
         cell.title.text = book.title
 
-        if let isbn = book.isbn, url = NSURL(string: "http://bcover.tk/" + isbn) {
+        if let isbn = book.isbn, let url = URL(string: "https://bcover.tk/" + isbn) {
             cell.cover.hnk_setImageFromURL(url, placeholder: UIImage(named:"empty"))
         } else {
             cell.cover.image = UIImage(named: "empty")
         }
 
         if let author = book.author {
-            cell.author.hidden = false
+            cell.author.isHidden = false
             cell.author.text = author
         } else {
-            cell.author.hidden = true
+            cell.author.isHidden = true
         }
 
 
@@ -58,24 +58,24 @@ class AuthorController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
-        self.selectedItemInfo = self.books[indexPath.row]
+        self.selectedItemInfo = self.books[(indexPath as NSIndexPath).row]
 
-        self.performSegueWithIdentifier("ShowBook", sender: nil)
+        self.performSegue(withIdentifier: "ShowBook", sender: nil)
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.books.count
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 170
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? BookViewController where segue.identifier == "ShowBook" {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? BookViewController , segue.identifier == "ShowBook" {
             vc.book = self.selectedItemInfo
         }
     }

@@ -13,8 +13,8 @@ import Haneke
 class BookshelfController: UITableViewController {
     var bookshelf: Bookshelf!
 
-    private var books: [Book] = []
-    private var selectedBook: Book!
+    fileprivate var books: [Book] = []
+    fileprivate var selectedBook: Book!
 
     @IBOutlet weak var cover: UIImageView!
     @IBOutlet weak var name: UILabel!
@@ -23,7 +23,7 @@ class BookshelfController: UITableViewController {
     var header: UIView!
     let coverLayer = CALayer()
     var initialHeaderFrame:CGRect!
-    private var kTableHeaderHeight: CGFloat = 375.0
+    fileprivate var kTableHeaderHeight: CGFloat = 375.0
 
 
 
@@ -41,7 +41,7 @@ class BookshelfController: UITableViewController {
 
 
 
-        self.tableView.registerNib(UINib(nibName: "Book", bundle: nil), forCellReuseIdentifier: "Book")
+        self.tableView.register(UINib(nibName: "Book", bundle: nil), forCellReuseIdentifier: "Book")
 
 
 
@@ -77,7 +77,7 @@ class BookshelfController: UITableViewController {
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
 
         self.scrollViewDidScroll(self.tableView)
@@ -94,7 +94,7 @@ class BookshelfController: UITableViewController {
         header.frame = headerRect
     }
 
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
 
         /*let NAVBAR_CHANGE_POINT:CGFloat = initialHeaderFrame.height / 2
@@ -121,28 +121,28 @@ class BookshelfController: UITableViewController {
 
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 170
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Book", forIndexPath: indexPath) as! BooksListItem
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Book", for: indexPath) as! BooksListItem
 
-        let book = books[indexPath.row]
+        let book = books[(indexPath as NSIndexPath).row]
 
         cell.title.text = book.title
 
         if let isbn = book.isbn {
-            cell.cover.hnk_setImageFromURL(NSURL(string: "http://bcover.tk/" + isbn)!, placeholder: UIImage(named:"empty"))
+            cell.cover.hnk_setImageFromURL(URL(string: "https://bcover.tk/" + isbn)!, placeholder: UIImage(named:"empty"))
         }
 
         cell.isbn = book.isbn
 
         if let author = book.author {
-            cell.author.hidden = false
+            cell.author.isHidden = false
             cell.author.text = author
         } else {
-            cell.author.hidden = true
+            cell.author.isHidden = true
         }
 
         cell.type.text = book.subtitle
@@ -150,13 +150,13 @@ class BookshelfController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.selectedBook = books[indexPath.row]
-        self.performSegueWithIdentifier("Book", sender: nil)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedBook = books[(indexPath as NSIndexPath).row]
+        self.performSegue(withIdentifier: "Book", sender: nil)
     }
 
 
@@ -180,9 +180,9 @@ class BookshelfController: UITableViewController {
 
 
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "Book") {
-            let vc = segue.destinationViewController as! BookViewController;
+            let vc = segue.destination as! BookViewController;
             vc.book = self.selectedBook
         }
     }

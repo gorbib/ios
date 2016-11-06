@@ -53,11 +53,11 @@ struct Book {
 
         self.title = json["title"].string
 
-        if let author = json["author"].string where !author.isEmpty {
+        if let author = json["author"].string , !author.isEmpty {
             self.author = author
         }
 
-        if let isbn = json["isbn"].string where !isbn.isEmpty {
+        if let isbn = json["isbn"].string , !isbn.isEmpty {
             self.isbn = isbn
         } else {
             isbn = nil

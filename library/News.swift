@@ -11,18 +11,18 @@ import SwiftyJSON
 
 struct News {
     var title:String? = ""
-    var link: NSURL
-    var time: NSDate
+    var link: URL
+    var time: Date
 
 
     init(json: JSON) {
         title = json["title"].string
-        link = NSURL(string:json["link"].stringValue)!
+        link = URL(string:json["link"].stringValue)!
 
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss ZZZZ"
 
-        time = dateFormatter.dateFromString(json["pubDate"].stringValue)!
+        time = dateFormatter.date(from: json["pubDate"].stringValue)!
     }
 }

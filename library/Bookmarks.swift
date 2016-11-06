@@ -18,11 +18,11 @@ class Bookmarks {
         return Singleton.i
     }
 
-    private let defs = NSUserDefaults.standardUserDefaults()
-    private var named:[String:AnyObject] = [:]
+    fileprivate let defs = UserDefaults.standard
+    fileprivate var named:[String:AnyObject] = [:]
 
     init() {
-        named = defs.dictionaryForKey("bookmarks") ?? [:]
+        named = defs.dictionary(forKey: "bookmarks") as [String : AnyObject]? ?? [:]
     }
 
     
@@ -30,31 +30,31 @@ class Bookmarks {
 
         var items:[Book] = []
 
-        for bookString in named {
-            if let data = bookString.1.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false){
-                let json = JSON(data: data)
-
-                items.append(Book(json: json))
-            }
-        }
+//        for bookString in named {
+//            if let data = bookString.1.data(using: String.Encoding.utf8, allowLossyConversion: false){
+//                let json = JSON(data: data)
+//
+//                items.append(Book(json: json))
+//            }
+//        }
 
         return items
     }
 
-    func isBookmarked(bookId:Int) -> Bool {
+    func isBookmarked(_ bookId:Int) -> Bool {
         return named[String(bookId)] != nil
     }
 
-    func add(book:Book) {
-        named[String(book.id)] = book.json.rawString()!
+    func add(_ book:Book) {
+        named[String(book.id)] = book.json.rawString()! as AnyObject?
 
-        defs.setObject(named, forKey: "bookmarks")
+        defs.set(named, forKey: "bookmarks")
         defs.synchronize()
     }
 
-    func remove(bookId:Int) {
-        named.removeValueForKey(String(bookId))
-        self.defs.setObject(named, forKey: "bookmarks")
+    func remove(_ bookId:Int) {
+        named.removeValue(forKey: String(bookId))
+        self.defs.set(named, forKey: "bookmarks")
         self.defs.synchronize()
     }
 }

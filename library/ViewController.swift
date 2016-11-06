@@ -14,7 +14,7 @@ import SafariServices
 
 class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControllerDelegate {
     
-    lazy var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, self.view.bounds.size.width - 74, 44))
+    lazy var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width - 74, height: 44))
     
     @IBOutlet weak var bookshelvesCollection: UICollectionView!
     @IBOutlet weak var otherBookshelvesCollection: UICollectionView!
@@ -39,20 +39,19 @@ class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sendScreenView()
         
         // Add Search bar to navigationbar
         searchBar.placeholder = NSLocalizedString("Ищите в библиотеке", comment: "Search bar placeholder text")
-        searchBar.tintColor = .orangeColor()
+        searchBar.tintColor = UIColor.orange
 
         searchBar.delegate = self
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView:searchBar)
 
         bookshelfHeight = self.otherBookshelvesCollection.frame.width / 16 * 9
         
-        newBooksCollection.registerNib(UINib(nibName: "BookCell", bundle: nil), forCellWithReuseIdentifier: "Book")
-        bookshelvesCollection.registerNib(UINib(nibName: "Bookshelf", bundle: nil), forCellWithReuseIdentifier: "Bookshelf")
-        otherBookshelvesCollection.registerNib(UINib(nibName: "Bookshelf", bundle: nil), forCellWithReuseIdentifier: "Bookshelf")
+        newBooksCollection.register(UINib(nibName: "BookCell", bundle: nil), forCellWithReuseIdentifier: "Book")
+        bookshelvesCollection.register(UINib(nibName: "Bookshelf", bundle: nil), forCellWithReuseIdentifier: "Bookshelf")
+        otherBookshelvesCollection.register(UINib(nibName: "Bookshelf", bundle: nil), forCellWithReuseIdentifier: "Bookshelf")
 
         cache.fetch(key: "bookshelves") {
             result in
@@ -78,13 +77,13 @@ class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControl
         self.getNews()
     }
 
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
-        self.performSegueWithIdentifier("search", sender: nil)
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        self.performSegue(withIdentifier: "search", sender: nil)
 
         return false // False means "dont activate editing process"
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == self.bookshelvesCollection {
             return self.bookshelves.count
@@ -98,12 +97,12 @@ class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControl
     }
     
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == self.bookshelvesCollection {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Bookshelf", forIndexPath: indexPath) as! BookshelfItem
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Bookshelf", for: indexPath) as! BookshelfItem
 
-            let bookshelf = bookshelves[indexPath.row]
+            let bookshelf = bookshelves[(indexPath as NSIndexPath).row]
 
             if let cover = bookshelf.cover {
                 cell.cover.hnk_setImageFromURL(cover, placeholder: UIImage())
@@ -116,9 +115,9 @@ class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControl
 
             return cell
         } else if collectionView == self.otherBookshelvesCollection {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Bookshelf", forIndexPath: indexPath) as! BookshelfItem
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Bookshelf", for: indexPath) as! BookshelfItem
 
-            let bookshelf = otherBookshelves[indexPath.row]
+            let bookshelf = otherBookshelves[(indexPath as NSIndexPath).row]
 
             if let cover = bookshelf.cover {
                 cell.cover.hnk_setImageFromURL(cover, placeholder: UIImage())
@@ -131,33 +130,33 @@ class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControl
             
             return cell
         } else if collectionView == self.newsCollection {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("News", forIndexPath: indexPath) as! NewsCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "News", for: indexPath) as! NewsCell
 
-            let item = news[indexPath.row]
+            let item = news[(indexPath as NSIndexPath).row]
             cell.title.text = item.title
             
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "d MMMM"
-            cell.date.text = dateFormatter.stringFromDate(item.time)
+            cell.date.text = dateFormatter.string(from: item.time as Date)
 
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Book", forIndexPath: indexPath) as! BookCollectionCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Book", for: indexPath) as! BookCollectionCell
 
-            let book = newBooks[indexPath.row]
+            let book = newBooks[(indexPath as NSIndexPath).row]
 
 
             cell.title.text = book.title
 
             cell.author.text = book.author
 
-            if let isbn = book.isbn, url = NSURL(string: "http://bcover.tk/" + isbn) {
+            if let isbn = book.isbn, let url = URL(string: "https://bcover.tk/" + isbn) {
 
                 cell.cover.hnk_setImageFromURL(url, placeholder: UIImage(named:"empty")) {
                     image in
 
-                    cell.author.hidden = true
-                    cell.title.hidden = true
+                    cell.author.isHidden = true
+                    cell.title.isHidden = true
                     cell.cover.image = image
                 }
             } else {
@@ -168,7 +167,7 @@ class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControl
         }
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
 
         if(collectionView == self.newBooksCollection) {
 
@@ -183,40 +182,40 @@ class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControl
 
 
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath) {
 
         if(collectionView == self.newBooksCollection) {
-            self.selectedItemInfo = self.newBooks[indexPath.row]
+            self.selectedItemInfo = self.newBooks[(indexPath as NSIndexPath).row]
         
-            self.performSegueWithIdentifier("ShowBook", sender: nil)
+            self.performSegue(withIdentifier: "ShowBook", sender: nil)
         } else if collectionView == self.newsCollection {
-            let link = news[indexPath.row].link
+            let link = news[(indexPath as NSIndexPath).row].link
 
             if #available(iOS 9.0, *) {
-                let svc = SFSafariViewController(URL: link, entersReaderIfAvailable: true)
-                self.presentViewController(svc, animated: true, completion: nil)
+                let svc = SFSafariViewController(url: link as URL, entersReaderIfAvailable: true)
+                self.present(svc, animated: true, completion: nil)
             } else {
-                UIApplication.sharedApplication().openURL(link)
+                UIApplication.shared.openURL(link as URL)
             }
 
 
         } else if collectionView == self.bookshelvesCollection {
-            self.selectedBookshelf = bookshelves[indexPath.row]
-            self.performSegueWithIdentifier("Bookshelf", sender: nil)
+            self.selectedBookshelf = bookshelves[(indexPath as NSIndexPath).row]
+            self.performSegue(withIdentifier: "Bookshelf", sender: nil)
         } else if collectionView == self.otherBookshelvesCollection {
-            self.selectedBookshelf = otherBookshelves[indexPath.row]
-            self.performSegueWithIdentifier("Bookshelf", sender: nil)
+            self.selectedBookshelf = otherBookshelves[(indexPath as NSIndexPath).row]
+            self.performSegue(withIdentifier: "Bookshelf", sender: nil)
         }
     }
 
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let currentIndex = bookshelvesCollection.contentOffset.x / bookshelvesCollection.frame.size.width;
 
         bookshelvesPageControl.currentPage = Int(currentIndex)
     }
 
-    @available(iOS 9.0, *) func safariViewControllerDidFinish(controller: SFSafariViewController) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
+    @available(iOS 9.0, *) func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     
@@ -285,12 +284,12 @@ class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControl
     }
 
     func getNews(){
-        Alamofire.request(.GET, "http://rss2json.com/api.json", parameters: [
+        Alamofire.request("https://rss2json.com/api.json", method: .get, parameters: [
                 "rss_url":"http://gorbib.org.ru/index.php?option=com_content&view=category&id=49&format=feed&type=rss"
             ]).responseData {
             response in
 
-            if let data = response.data where response.response?.statusCode == 200 {
+            if let data = response.data , response.response?.statusCode == 200 {
 
                 let json = JSON(data: data)
 
@@ -305,15 +304,15 @@ class ViewController: UIViewController, UISearchBarDelegate, SFSafariViewControl
     }
 
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (segue.identifier == "ShowBook") {
-            let vc = segue.destinationViewController as! BookViewController;
+            let vc = segue.destination as! BookViewController;
             vc.book = self.selectedItemInfo
         }
 
         if (segue.identifier == "Bookshelf") {
-            let vc = segue.destinationViewController as! BookshelfController
+            let vc = segue.destination as! BookshelfController
             vc.bookshelf = selectedBookshelf
         }
     }

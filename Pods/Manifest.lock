@@ -1,57 +1,71 @@
 PODS:
-  - Alamofire (3.2.1)
-  - DZNEmptyDataSet (1.7.3)
-  - Google/Analytics (1.0.7):
+  - Alamofire (4.0.1)
+  - DZNEmptyDataSet (1.8.1)
+  - FirebaseAnalytics (3.5.1):
+    - FirebaseCore (~> 3.4)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseCore (3.4.4):
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseInstanceID (1.0.8)
+  - Google/Analytics (3.0.3):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
-  - Google/Core (1.0.7):
-    - GoogleNetworkingUtilities (~> 1.0)
-    - GoogleSymbolUtilities (~> 1.0)
-    - GoogleUtilities (~> 1.0)
-  - GoogleAnalytics (3.14.0)
-  - GoogleNetworkingUtilities (1.0.0):
-    - GoogleSymbolUtilities (~> 1.0)
-  - GoogleSymbolUtilities (1.0.3)
-  - GoogleUtilities (1.1.0):
-    - GoogleSymbolUtilities (~> 1.0.0)
+  - Google/Core (3.0.3):
+    - FirebaseAnalytics (~> 3.2)
+  - GoogleAnalytics (3.17.0)
+  - GoogleInterchangeUtilities (1.2.2):
+    - GoogleSymbolUtilities (~> 1.1)
+  - GoogleSymbolUtilities (1.1.2)
+  - GoogleToolboxForMac/Defines (2.1.0)
+  - GoogleToolboxForMac/NSData+zlib (2.1.0):
+    - GoogleToolboxForMac/Defines (= 2.1.0)
   - HanekeSwift (0.10.1)
   - Spring (1.0.3)
-  - SwiftyJSON (2.3.0)
+  - SwiftyJSON (3.1.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.0)
+  - Alamofire (~> 4.0)
   - DZNEmptyDataSet
-  - Google/Analytics (~> 1.0.0)
-  - HanekeSwift
-  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift2`)
-  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode7.1`)
+  - Google/Analytics
+  - HanekeSwift (from `https://github.com/jasonnoahchoi/HanekeSwift`, branch `swift3`)
+  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift3`)
+  - SwiftyJSON
 
 EXTERNAL SOURCES:
+  HanekeSwift:
+    :branch: swift3
+    :git: https://github.com/jasonnoahchoi/HanekeSwift
   Spring:
-    :branch: swift2
+    :branch: swift3
     :git: https://github.com/MengTo/Spring.git
-  SwiftyJSON:
-    :branch: xcode7.1
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  HanekeSwift:
+    :commit: 8571f0285ae7daa578866e50bc36cc85946e9ae8
+    :git: https://github.com/jasonnoahchoi/HanekeSwift
   Spring:
-    :commit: 18d5c7b74489de8044e34767f856d1e574f0820e
+    :commit: 3a9227c6e9157e7b47f5ac1ee5abab2a56b50002
     :git: https://github.com/MengTo/Spring.git
-  SwiftyJSON:
-    :commit: 3db7e39b11b58c91a0a360381ec7620b2caab46a
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 87c0e89579a2919873312ce86a93dd10c754d967
-  DZNEmptyDataSet: 85d3f411b9bf8ba022f560a776f524432016d720
-  Google: 77ff4082b3dd7f8cc09b9bbf3c4425c64343d6e1
-  GoogleAnalytics: 7ea7098da6b58fb892cce5f944be750f82aec887
-  GoogleNetworkingUtilities: 297298112870a97d7ca6226fc5174e25723730af
-  GoogleSymbolUtilities: a98ea3821473fb3b781eb687eb9c084123834280
-  GoogleUtilities: 0fd940f6ec14d578382c59eee167affc378b14b6
-  HanekeSwift: 8b349e2edd39483bfbe487e05d90487903d14597
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
+  FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
+  FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
+  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
+  GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
+  GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
+  GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
+  HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
-  SwiftyJSON: 705aa707804b63377e49adf096d3f1bd59afafbc
+  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 16a20eb4d13d4aeef3c4ea47b33150fef73ceb92
+
+COCOAPODS: 1.1.0.rc.2

@@ -13,7 +13,7 @@ struct Bookshelf {
     var id: Int
     var title: String?
     var description: String?
-    var cover: NSURL?
+    var cover: URL?
     var books: [Book] = []
 
     init(json: JSON) {
@@ -22,7 +22,7 @@ struct Bookshelf {
         self.title = json["title"].string
         self.description = json["description"].string
 
-        if let coverURL = json["cover"].string, let cover = NSURL(string: coverURL) where !coverURL.isEmpty {
+        if let coverURL = json["cover"].string, let cover = URL(string: coverURL) , !coverURL.isEmpty {
             self.cover = cover
         }
 

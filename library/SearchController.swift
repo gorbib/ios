@@ -3,7 +3,7 @@ import SwiftyJSON
 
 class SearchController: UITableViewController, UISearchBarDelegate {
 
-    lazy var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, self.view.bounds.size.width - 74, 44))
+    lazy var searchBar:UISearchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width - 74, height: 44))
 
 
     @IBOutlet weak var notFoundMessage: UILabel!
@@ -37,14 +37,13 @@ class SearchController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sendScreenView()
 
-        tableView.registerNib(UINib(nibName: "Book", bundle: nil), forCellReuseIdentifier: "Book")
+        tableView.register(UINib(nibName: "Book", bundle: nil), forCellReuseIdentifier: "Book")
 
         // Add Search bar to navigationbar
         searchBar.placeholder = NSLocalizedString("Ищите в библиотеке", comment: "Search bar placeholder text")
-        searchBar.tintColor = .orangeColor()
-        searchBar.spellCheckingType = .Yes
+        searchBar.tintColor = UIColor.orange
+        searchBar.spellCheckingType = .yes
         searchBar.delegate = self
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView:searchBar)
         searchBar.becomeFirstResponder()
@@ -52,11 +51,11 @@ class SearchController: UITableViewController, UISearchBarDelegate {
     }
 
     // Change text in search bar event
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
-        searchQuery = searchText.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
+        searchQuery = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        NSObject.cancelPreviousPerformRequestsWithTarget(self)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
 
         if !searchQuery.isEmpty {
 
@@ -71,10 +70,10 @@ class SearchController: UITableViewController, UISearchBarDelegate {
                 downloadTasks.forEach { $0.cancel() }
             }
             // 0.5 second delay before searching
-            self.performSelector(#selector(SearchController.find), withObject: nil, afterDelay: 0.5)
+            self.perform(#selector(SearchController.find), with: nil, afterDelay: 0.5)
 
         } else {
-            endIndicator.hidden = true
+            endIndicator.isHidden = true
             searchResults.removeAll()
             tableView.reloadData()
         }
@@ -84,26 +83,26 @@ class SearchController: UITableViewController, UISearchBarDelegate {
     
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Book", forIndexPath: indexPath) as! BooksListItem
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Book", for: indexPath) as! BooksListItem
 
 
-        let book = searchResults[indexPath.row]
+        let book = searchResults[(indexPath as NSIndexPath).row]
         
         cell.title.text = book.title
 
-        if let isbn = book.isbn, url = NSURL(string: "http://bcover.tk/" + isbn) {
+        if let isbn = book.isbn, let url = URL(string: "https://bcover.tk/" + isbn) {
 
             cell.cover.alpha = 0.3
             cell.cover.hnk_setImageFromURL(url, placeholder: UIImage(named:"empty"), format: nil, failure: {
                 error in
 
-                UIView.animateWithDuration(0.1, delay: 0, options: [], animations: {
+                UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: {
                     cell.cover.alpha = 1
                 }, completion: nil)
             }) {
                 image in
-                UIView.animateWithDuration(0.3, delay: 0, options: [], animations: {
+                UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: {
                     cell.cover.alpha = 1
                     cell.cover.image = image
                 }, completion: nil)
@@ -114,10 +113,10 @@ class SearchController: UITableViewController, UISearchBarDelegate {
         }
 
         if let author = book.author {
-            cell.author.hidden = false
+            cell.author.isHidden = false
             cell.author.text = author
         } else {
-            cell.author.hidden = true
+            cell.author.isHidden = true
         }
 
         cell.departaments.text = ""
@@ -131,21 +130,21 @@ class SearchController: UITableViewController, UISearchBarDelegate {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
-        self.performSegueWithIdentifier("ShowBook", sender: indexPath.row)
+        self.performSegue(withIdentifier: "ShowBook", sender: (indexPath as NSIndexPath).row)
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.searchResults.count
     }
     
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
        
         // When user scroll to bottom of list
-        if indexPath.row > self.searchResults.count-2 {
+        if (indexPath as NSIndexPath).row > self.searchResults.count-2 {
             
             // If we have more search results — load them
             if (self.searchResults.count < self.searchResultsTotal && !self.freeze){
@@ -160,7 +159,7 @@ class SearchController: UITableViewController, UISearchBarDelegate {
             
             // If this is all, show end indicator
             } else {
-                endIndicator.hidden = false
+                endIndicator.isHidden = false
                 
                 print("Librarian: It is all books, no more. Maybe want something other?")
             }
@@ -168,7 +167,7 @@ class SearchController: UITableViewController, UISearchBarDelegate {
 
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 170
     }
 
@@ -178,19 +177,14 @@ class SearchController: UITableViewController, UISearchBarDelegate {
     */
     func find() {
 
-        // Do not track «load more» requests
-        if page == 0 {
-            trackEvent("books", action: "search", label: self.searchQuery, value: 1)
-        }
-
-        self.activityIndicator.hidden = false
-        self.notFoundMessage.hidden = true
+        self.activityIndicator.isHidden = false
+        self.notFoundMessage.isHidden = true
 
         
         API.sharedInstance.search(self.searchQuery, forPage: self.page, fail: {
             error in
 
-            self.activityIndicator.hidden = true
+            self.activityIndicator.isHidden = true
 
             print(error)
 
@@ -213,10 +207,10 @@ class SearchController: UITableViewController, UISearchBarDelegate {
             self.tableView.beginUpdates()
 
             let insertedIndexPathRange = self.searchResults.count..<self.searchResults.count + books.count
-            let insertedIndexPaths = insertedIndexPathRange.map { NSIndexPath(forRow: $0, inSection: 0) }
+            let insertedIndexPaths = insertedIndexPathRange.map { IndexPath(row: $0, section: 0) }
 
 
-            self.tableView.insertRowsAtIndexPaths(insertedIndexPaths, withRowAnimation: .Fade)
+            self.tableView.insertRows(at: insertedIndexPaths, with: .fade)
 
             self.searchResults += books
 
@@ -225,7 +219,7 @@ class SearchController: UITableViewController, UISearchBarDelegate {
 
             //self.tableView.reloadData()
             
-            self.activityIndicator.hidden = true;
+            self.activityIndicator.isHidden = true;
             
             /*if(self.searchResults.count > 0) {
                 let formatter = NSNumberFormatter()
@@ -237,14 +231,14 @@ class SearchController: UITableViewController, UISearchBarDelegate {
                 )
             }*/
                 
-            self.notFoundMessage.hidden = (self.searchResults.count > 0)
+            self.notFoundMessage.isHidden = (self.searchResults.count > 0)
         }
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let vc = segue.destinationViewController as? BookViewController where segue.identifier == "ShowBook" {
+        if let vc = segue.destination as? BookViewController , segue.identifier == "ShowBook" {
             let indexPath = sender as! Int
 
             vc.book = self.searchResults[indexPath]

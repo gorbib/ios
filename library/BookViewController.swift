@@ -36,10 +36,6 @@ class BookViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Analytics
-        sendScreenView()
-        trackEvent("books", action: "view", label: String(self.book.id), value: 1)
-
 
         initialHeaderFrame = header.frame
 
@@ -47,24 +43,24 @@ class BookViewController: UIViewController, UIScrollViewDelegate {
         self.bookTitle.text = book.title
         
         if let author = book.author {
-            self.author.hidden = false
-            self.author.setTitle(author + " >", forState: .Normal)
+            self.author.isHidden = false
+            self.author.setTitle(author + " >", for: UIControlState())
         } else {
-            self.author.hidden = true
+            self.author.isHidden = true
         }
 
-        self.contentsButton.enabled = (book.contents.count > 0)
+        self.contentsButton.isEnabled = (book.contents.count > 0)
 
 
         summary.textContainerInset = UIEdgeInsetsMake(10, 10, 10, 10) // 10 pixel padding in summary
         self.summary.text = book.summary
 
         if let pages = book.pages {
-            self.numberOfPagesOfTheBook.hidden = false
+            self.numberOfPagesOfTheBook.isHidden = false
             self.numberOfPagesOfTheBook.text = String(pages) + " стр."
         }
         if let ageRestriction = book.ageRestriction {
-            self.ageRestrictions.hidden = false
+            self.ageRestrictions.isHidden = false
             self.ageRestrictions.text = ageRestriction
         }
 
@@ -77,7 +73,7 @@ class BookViewController: UIViewController, UIScrollViewDelegate {
             for copy in book.departament {
 
                 departament.insertText(copy)
-                deps.appendContentsOf("— \(copy)\n")
+                deps.append("— \(copy)\n")
             }
             departament.text = deps
         }
@@ -93,18 +89,18 @@ class BookViewController: UIViewController, UIScrollViewDelegate {
         lbc.text = book.lbc
 
         if let isbn = book.isbn {
-            self.coverImage.hnk_setImageFromURL(NSURL(string:"http://bcover.tk/" + isbn)!)
+            self.coverImage.hnk_setImageFromURL(URL(string:"https://bcover.tk/" + isbn)!)
         }
 
 
         if Bookmarks.i.isBookmarked(book.id) {
-            self.bookmarkButton.tintColor = UIColor.redColor()
+            self.bookmarkButton.tintColor = UIColor.red
         }
 
 
 
 
-        related.registerNib(UINib(nibName: "BookCell", bundle: nil), forCellWithReuseIdentifier: "Book")
+        related.register(UINib(nibName: "BookCell", bundle: nil), forCellWithReuseIdentifier: "Book")
 
         API.sharedInstance.getRelatedBooks(toBook: book.id){
             result in
@@ -118,7 +114,7 @@ class BookViewController: UIViewController, UIScrollViewDelegate {
     
     
     // MARK: Scroll view
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
 
         if offsetY < 0 {
@@ -138,8 +134,8 @@ class BookViewController: UIViewController, UIScrollViewDelegate {
     /**
         Share book with system share component
     */
-    @IBAction func share(sender: AnyObject) {
-        let url: NSURL = NSURL(string: "http://ec.gorbib.org.ru/records/" + String(book.id))!
+    @IBAction func share(_ sender: AnyObject) {
+        let url: URL = URL(string: "http://ec.gorbib.org.ru/records/" + String(book.id))!
 
         
         let activityViewController = UIActivityViewController(
@@ -147,47 +143,47 @@ class BookViewController: UIViewController, UIScrollViewDelegate {
             applicationActivities: nil
         )
         
-        presentViewController(activityViewController, animated: true, completion: nil)
+        present(activityViewController, animated: true, completion: nil)
     }
 
-    @IBAction func bookmark(sender: AnyObject) {
+    @IBAction func bookmark(_ sender: AnyObject) {
 
         if Bookmarks.i.isBookmarked(book.id) {
             Bookmarks.i.remove(book.id)
-            bookmarkButton.tintColor = UIColor.whiteColor()
+            bookmarkButton.tintColor = UIColor.white
         } else {
             Bookmarks.i.add(book)
-            bookmarkButton.tintColor = UIColor.redColor()
+            bookmarkButton.tintColor = UIColor.red
         }
     }
     
-    @IBAction func author(sender: AnyObject) {
-        self.performSegueWithIdentifier("ShowAuthor", sender: nil)
+    @IBAction func author(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "ShowAuthor", sender: nil)
     }
 
 
 
     // MARK: Related books
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.relatedBooks.count
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Book", forIndexPath: indexPath) as! BookCollectionCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Book", for: indexPath) as! BookCollectionCell
 
-            let book = relatedBooks[indexPath.row]
+            let book = relatedBooks[(indexPath as NSIndexPath).row]
 
 
             cell.title.text = book.title
 
             cell.author.text = book.author
 
-            if let isbn = book.isbn, url = NSURL(string: "http://bcover.tk/" + isbn) {
+            if let isbn = book.isbn, let url = URL(string: "https://bcover.tk/" + isbn) {
                 cell.cover.hnk_setImageFromURL(url, placeholder: UIImage(named:"empty")) {
                     image in
 
-                    cell.author.hidden = true
-                    cell.title.hidden = true
+                    cell.author.isHidden = true
+                    cell.title.isHidden = true
                     cell.cover.image = image
                 }
             } else {
@@ -197,10 +193,10 @@ class BookViewController: UIViewController, UIScrollViewDelegate {
             return cell
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: IndexPath) {
 
-        let relatedBookVC = self.storyboard!.instantiateViewControllerWithIdentifier("Book") as! BookViewController
-        relatedBookVC.book = relatedBooks[indexPath.row]
+        let relatedBookVC = self.storyboard!.instantiateViewController(withIdentifier: "Book") as! BookViewController
+        relatedBookVC.book = relatedBooks[(indexPath as NSIndexPath).row]
 
         self.navigationController?.pushViewController(relatedBookVC, animated: true)
     }
@@ -210,16 +206,16 @@ class BookViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: Segues
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if (segue.identifier == "ShowAuthor") {
-            let vc = segue.destinationViewController as! AuthorController
+            let vc = segue.destination as! AuthorController
             
             vc.author = Author(name: book.author!)
         }
 
         if (segue.identifier == "Contents") {
-            let vc = segue.destinationViewController as! ContentsController
+            let vc = segue.destination as! ContentsController
 
             vc.contents = book.contents
         }
